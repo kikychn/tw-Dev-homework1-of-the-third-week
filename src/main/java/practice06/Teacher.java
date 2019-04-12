@@ -22,7 +22,7 @@ public class Teacher extends Person{
 
     public String introduce() {
         if(getKlass()!=null){
-            return super.introduce() + " I am a Teacher. I teach Class " + getKlass() + ".";
+            return super.introduce() + " I am a Teacher. I teach Class " + klass + ".";
         }else {
             return super.introduce() + " I am a Teacher. I teach No Class.";
         }
