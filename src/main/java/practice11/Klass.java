@@ -1,8 +1,28 @@
 package practice11;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Klass {
     private Integer number;
     private Student leader;
+
+
+    private List<Observer> observers = new ArrayList<Observer>();
+
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    protected void notifyObervers(Student student, NoticeType noticeType) {
+        for (Observer observer : observers) {
+            observer.update(this, student, noticeType);
+        }
+    }
 
     public Student getLeader() {
         return leader;
@@ -20,14 +40,15 @@ public class Klass {
     public void assignLeader(Student leader) {
         if (this.equals(leader.getKlass())) {
             this.leader = leader;
+            notifyObervers(leader, NoticeType.BECOME_LEADER);
         } else {
             System.out.print("It is not one of us.\n");
         }
     }
 
-    public void appendMember(Student student){
+    public void appendMember(Student student) {
         student.setKlass(this);
-        System.out.print("I am Tom. I know Jerry has joined Class 2.\n");
+        notifyObervers(student, NoticeType.JOIN_CLASS);
     }
 
     public Klass(Integer number) {
